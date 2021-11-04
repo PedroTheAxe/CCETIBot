@@ -9,6 +9,7 @@ module.exports = new Command({
 	permission: "SEND_MESSAGES",
 	async run(channel, client) {
 		const embedLearning = new Discord.MessageEmbed();
+		const embedContent = new Discord.MessageEmbed();
         const embedPractical = new Discord.MessageEmbed();
 
 		const multipleChoiceA = '🇦'
@@ -19,7 +20,8 @@ module.exports = new Command({
 								 + "As stated by DeFranzo (n.d.), modifying behaviour is done as a means of improving performance. Often the way people "
 								 + "try to persuade others to change their behaviour is through criticism, whether it is negative or constructive. The latter "
 								 + "is usually viewed as the more effective way to give feedback, as it is better accepted, and people are more prone to take "
-								 + "note on what they have to adjust. Also, it is stated that it “is a tool for continued learning” (DeFranzo, n.d.). Having "
+								 + "note on what they have to adjust. Also, it is stated that it “is a tool for continued learning” (DeFranzo, n.d.). "
+		const learningModuleTxt2 = "Having "
 								 + "periodic meetings to correct and improve on certain aspects by giving feedback is a great strategy to not only develop on "
 								 + "those difficulties but to also create better relationships between students, co-workers, teachers and so on. "
 								 + "\nDeFranzo (n.d.) further explains that feedback might not affect behaviour but can motivate the person to maintain "
@@ -27,18 +29,19 @@ module.exports = new Command({
 								 + "performance but will not deviate much form the approaches they were using earlier. "
 		
 		embedLearning
-            .setAuthor('Module 1')
+            .setAuthor('Module 2')
 			.setTitle("Describing the two main objectives of giving feedback")
 			.setColor("#80dfff")
 			.setThumbnail("https://www.ulisboa.pt/sites/ulisboa.pt/files/styles/logos_80px_vert/public/uo/logos/logo_ist.jpg?itok=2NCqbcIP")
-			.addFields(
-                { name: 'Theoretical module', value:'\u200B'},
-            )
-			.setFooter("DeFranzo, Susan E. (n.d.). 5 Reasons Why Feedback is Important.https://www.snapsurveys.com/blog/5-reasons-feedback-important/\n"
-					 + "Casal, S., DellaValle, N., Mittone, L., & Soraperra, I. (2017). Feedback and efficient behavior. PloS one, 12(4), e0175738. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5400271/")
-        client.channels.cache.get(channel.id).send({ embeds: [embedLearning] });
 
-        client.channels.cache.get(channel.id).send(learningModuleText);
+		embedContent
+			.setColor("#99ff99")
+			.addFields(
+				{ name: 'Theoretical module', value: learningModuleText},
+				{ name: '\u200b', value: learningModuleTxt2},
+			)
+			.setFooter("\u200bDeFranzo, Susan E. (n.d.). 5 Reasons Why Feedback is Important.https://www.snapsurveys.com/blog/5-reasons-feedback-important/\n"
+					 + "Casal, S., DellaValle, N., Mittone, L., & Soraperra, I. (2017). Feedback and efficient behavior. PloS one, 12(4), e0175738. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5400271/")
 
         embedPractical
 			.setColor("#ff6600")
@@ -48,8 +51,10 @@ module.exports = new Command({
 				{ name: 'B', value:'"You did a great job, but there were some issues regarding the efficiency of your code and how it can perform at a larger scale."'},
 				{ name: 'C', value:'"I loved the way you approached this project and how you brought together the team around your idea. You are on your way to become the employee of the month!"'},
             )
-		console.log(channel.id);
-        let reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] });
+
+		client.channels.cache.get(channel.id).send({ embeds: [embedLearning] });
+		client.channels.cache.get(channel.id).send({ embeds: [embedContent] });
+		let reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] });
 
         
 		reactMessage.react(multipleChoiceA)

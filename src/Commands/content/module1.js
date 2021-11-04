@@ -9,6 +9,7 @@ module.exports = new Command({
 	permission: "SEND_MESSAGES",
 	async run(channel, client) {
 		const embedLearning = new Discord.MessageEmbed();
+		const embedContent = new Discord.MessageEmbed();
         const embedPractical = new Discord.MessageEmbed();
 
 		const multipleChoiceA = '🇦'
@@ -25,13 +26,13 @@ module.exports = new Command({
 			.setTitle("Defining Feedback")
 			.setColor("#80dfff")
 			.setThumbnail("https://www.ulisboa.pt/sites/ulisboa.pt/files/styles/logos_80px_vert/public/uo/logos/logo_ist.jpg?itok=2NCqbcIP")
+			
+		embedContent
+			.setColor("#99ff99")
 			.addFields(
-                { name: 'Theoretical module', value:'\u200B'},
-            )
-			.setFooter("Scott, S. V. (2014). Practising what we preach: towards a student-centred definition of feedback. Teaching in Higher Education, 19(1), 49-57. https://www.tandfonline.com/doi/abs/10.1080/13562517.2013.827639")
-        client.channels.cache.get(channel.id).send({ embeds: [embedLearning] });
-
-        client.channels.cache.get(channel.id).send(learningModuleText);
+				{ name: 'Theoretical module', value: learningModuleText},
+			)
+			.setFooter("\u200bScott, S. V. (2014). Practising what we preach: towards a student-centred definition of feedback. Teaching in Higher Education, 19(1), 49-57. https://www.tandfonline.com/doi/abs/10.1080/13562517.2013.827639")
 
         embedPractical
 			.setColor("#ff6600")
@@ -41,7 +42,9 @@ module.exports = new Command({
 				{ name: 'B', value:'"I appreciated the way you presented the topic, but there was too much information in each slide and the colour palette was not the best."'},
 				{ name: 'C', value:'"Your painting is lovely, but I cant stand the way you coloured it and the way you framed it."'},
             )
-		console.log(channel.id);
+			
+		client.channels.cache.get(channel.id).send({ embeds: [embedLearning] });
+		client.channels.cache.get(channel.id).send({ embeds: [embedContent] });
         let reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] });
 
         
