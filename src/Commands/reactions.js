@@ -7,8 +7,7 @@ const module2 = require("../Commands/content/module2.js");
 const module3 = require("../Commands/content/module3.js");
 const module4 = require("../Commands/content/module4.js");
 const module5_6 = require("../Commands/content/module5-6.js");
-const module7 = require("../Commands/content/module7.js");
-const module8 = require("../Commands/content/module8.js");
+const module7_8 = require("../Commands/content/module7-8.js");
 const module9 = require("../Commands/content/module9.js");
 const module10 = require("../Commands/content/module10.js");
 
@@ -30,17 +29,36 @@ module.exports = new Command({
         const part1Emoji = '✅'
 
         embed
-			.setTitle("Welcome!")
+			.setTitle("Welcome to Group 9's CCETI project!")
 			.setDescription(
-				"Click the green mark emoji to start"
+				"With the help of our friend CCETIBot, today we will learn about effective feedback! More specifically:"
 			)
+            .addFields(
+                { name: '1 - Defining feedback', value: '\u200b'},
+                { name: '2 - Describing the 2 main objectives of giving feedback', value: '\u200b'},
+                { name: '3 - Listing 5 characteristics of effective feedback', value: '\u200b'},
+                { name: '4 - Describing 3 consequences of giving ineffective feedback', value: '\u200b'},
+                { name: '5 - Differentiating general feedback from specific feedback', value: '\u200b'},
+                { name: '6 - Converting general feedback into specific feedback', value: '\u200b'},
+                { name: '7 - Defining feedforward', value: '\u200b'},
+                { name: '8 - Distinguishing feedback from feedforward', value: '\u200b'},
+                { name: '9 - Converting feedback into feedforward', value: '\u200b'},
+                { name: '10 - Identifying, selecting and implementing 2 strategies to solicit effective feedback', value: '\u200b'},
+                { name: '11 - Non-verbal feedback', value: '\u200b'},
+                { name: '\u200b', value: 'Whenever you are ready, click the green checkmark emoji to start and the bot will create anonymous channels '
+                                            + '(only admins and you can see them) that will help you learn and practice these topics.'},
+            )
 			.setColor("BLURPLE")
 			.setThumbnail("https://www.ulisboa.pt/sites/ulisboa.pt/files/styles/logos_80px_vert/public/uo/logos/logo_ist.jpg?itok=2NCqbcIP")
-			.setTimestamp()
 
-		let reactMessage = await message.reply({ embeds: [embed] });
-        reactMessage.react(part1Emoji);
+        let lm = channel.lastMessageId;
         
+        let reactMessage = await client.channels.cache.get(channel).send({ embeds: [embed] });
+        
+        reactMessage.react(part1Emoji);
+
+        message.delete(lm)
+
         async function makeChannel(guild, user) {
 
             let category = guild.channels.create(user.username, {
@@ -59,10 +77,12 @@ module.exports = new Command({
             let idx = 1;
             for(; idx < 11; idx++) {
                 let name = user.username + "-" + idx;
-                if (idx == 6) {
+                if (idx == 6 || idx == 8) {
                     continue;
                 } else if (idx == 5) {
                     name = user.username + "- 5and6";
+                } else if (idx == 7) {
+                    name = user.username + "- 7and8";
                 }
                 await guild.channels.create(name, {
                     type: 'text',
@@ -96,10 +116,7 @@ module.exports = new Command({
                             module5_6.run(channel, client);
                             break;
                         case 7:
-                            module7.run(channel, client);
-                            break;
-                        case 8:
-                            module8.run(channel, client);
+                            module7_8.run(channel, client);
                             break;
                         case 9:
                             module9.run(channel, client);

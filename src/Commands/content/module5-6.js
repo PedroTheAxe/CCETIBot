@@ -31,7 +31,8 @@ module.exports = new Command({
 								 + "(n.d.), relates to “a specific, measurable performance goal”. \nNow, how do we change from general to specific feedback? The article "
 								 + "“How to give feedback the right way” (n.d.) gives a great approach to this conversion: \nThe first step is providing the right context. "
 								 + "That is, giving a specific reference point to the situation you are referring to, instead of giving an overview of the problem. "
-								 + "\nNext, you need to provide an observation. In other words, you need to provide a clear description “on the actions” – or behaviour "
+
+		const learningModuleTxt3 = "\nNext, you need to provide an observation. In other words, you need to provide a clear description “on the actions” – or behaviour "
 								 + "- and not on the “personality” (“How to give feedback the right way”, n.d.). \nCommenting on what kind of impact the behaviour had before "
 								 + "the feedback is also important as it shows how it may have affected other people. This step is most relevant “when you talk about the "
 								 + "effect on the group” (“How to give feedback the right way”, n.d.). \nFinally, and probably the most important step, you need to “offer "
@@ -48,6 +49,7 @@ module.exports = new Command({
 			.addFields(
 				{ name: 'Theoretical module', value: learningModuleText},
 				{ name: '\u200b', value: learningModuleTxt2},
+				{ name: '\u200b', value: learningModuleTxt3},
 			)
 			.setFooter("\u200b21 Components of Effective Feedback (n.d.). https://www.talkdesk.com/resources/infographics/21-components-of-effective-feedback/\n"
 			         + "How to give feedback the right way (n.d.). https://www.impraise.com/blog/how-to-give-feedback-the-right-way")
@@ -86,13 +88,12 @@ module.exports = new Command({
                     reaction.remove(user);             
                 } else if (reaction.emoji.name == multipleChoiceB) {
                     client.channels.cache.get(channel.id).send("to do")
-
+					reaction.remove(user);  
                 } else if (reaction.emoji.name == multipleChoiceC) {
                     client.channels.cache.get(channel.id).send("to do")
                     reaction.remove(user); 
-                } else if (reaction.emojin.name == multipleChoiceD) {
+                } else if (reaction.emoji.name == multipleChoiceD) {
 					client.channels.cache.get(channel.id).send("to do")
-					reaction.remove(user);
 				}
             } else {
                 return;
