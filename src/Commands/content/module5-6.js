@@ -45,7 +45,7 @@ module.exports = new Command({
 			.setThumbnail("https://www.ulisboa.pt/sites/ulisboa.pt/files/styles/logos_80px_vert/public/uo/logos/logo_ist.jpg?itok=2NCqbcIP")
 			
 		embedContent
-			.setColor("#663300")
+			.setColor("#99ff99")
 			.addFields(
 				{ name: 'Theoretical module', value: learningModuleText},
 				{ name: '\u200b', value: learningModuleTxt2},
@@ -60,11 +60,11 @@ module.exports = new Command({
                 { name: 'Practical module', value: 'Read the following general feedback sentences. What is the appropriate conversion to specific feedback?'},
 				{ name: 'A', value:'“I did not like your essay.” -> “I did not like your essay because of your vocabulary.”'},
 				{ name: 'B', value:'“Your presentation was boring.” -> “Your presentation was boring, so you need to change your tone of voice and posture.”'},
-				{ name: 'C', value:'“You sounded angry during the meeting.” -> “During the meeting when we were talking about the project you came up with '
-								 + 'and how it was not doing so well, you sounded angry and talked over our boss several times, without even noticing. He was not very pleased.”'},
-				{ name: 'D', value:'“You did not play according to the plan.” -> “Last game against Manchester City, on the second half, you did not do your '
+				{ name: 'C', value:'“You did not play according to the plan.” -> “Last game against Manchester City, on the second half, you did not do your '
 				                 + 'job as a captain by keeping the team together very well. Both myself and the team were not very happy with your performance. '
 								 + 'Try not to get in your own head and keep a rational mindset for the upcoming games.”'},
+				{ name: 'D', value:'“You sounded angry during the meeting.” -> “During the meeting when we were talking about the project you came up with '
+								 + 'and how it was not doing so well, you sounded angry and talked over our boss several times, without even noticing. He was not very pleased.”'},
             )
 		
 		client.channels.cache.get(channel.id).send({ embeds: [embedLearning] });
@@ -83,17 +83,16 @@ module.exports = new Command({
             if (!reaction.message.guild) return;
             if (reaction.message.channel.id == channel) {
                 if (reaction.emoji.name == multipleChoiceA) {
-                    client.channels.cache.get(channel.id).send("to do")
- 
+                    client.channels.cache.get(channel.id).send("This conversion lacks all mentioned steps above except the observation itself, this an example of general and poor feedback. Please try again.")
                     reaction.remove(user);             
                 } else if (reaction.emoji.name == multipleChoiceB) {
-                    client.channels.cache.get(channel.id).send("to do")
+                    client.channels.cache.get(channel.id).send("This conversion presents itself with an observation and how to fix it, however it does not give context or impact that it had. Please try again.")
 					reaction.remove(user);  
                 } else if (reaction.emoji.name == multipleChoiceC) {
-                    client.channels.cache.get(channel.id).send("to do")
-                    reaction.remove(user); 
+                    client.channels.cache.get(channel.id).send("Good work! This is a wonderful example of a conversion to specific feedback with all mentioned steps, in the right order and given the right way. You can proceed to the next channel!")
                 } else if (reaction.emoji.name == multipleChoiceD) {
-					client.channels.cache.get(channel.id).send("to do")
+					client.channels.cache.get(channel.id).send("This conversion is almost perfect, although it misses on how to fix the issue mentioned above. Please try again.")
+					reaction.remove(user); 
 				}
             } else {
                 return;

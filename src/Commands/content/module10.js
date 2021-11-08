@@ -14,6 +14,7 @@ module.exports = new Command({
 
 		const multipleChoiceA = '🇦'
 		const multipleChoiceB = '🇧'
+        const multipleChoiceC = '🇨'
 
         const learningModuleText = '\nIn this module we will identify, select and implement two different alternative strategies presented with a couple case studies mentioned by O’Hara (2015).\n'
 								 + 'The first strategy is "Get the right feedback to grow". O’Hara (2015) presents the case of an employee that was only getting praise from her work but not anything '
@@ -30,7 +31,7 @@ module.exports = new Command({
 			.setThumbnail("https://www.ulisboa.pt/sites/ulisboa.pt/files/styles/logos_80px_vert/public/uo/logos/logo_ist.jpg?itok=2NCqbcIP")
             
         embedContent
-            .setColor("#663300")
+            .setColor("#99ff99")
             .addFields(
                 { name: 'Theoretical module', value: learningModuleText},
             )
@@ -51,6 +52,7 @@ module.exports = new Command({
         
 		reactMessage.react(multipleChoiceA)
 		reactMessage.react(multipleChoiceB)
+        reactMessage.react(multipleChoiceC)
 
         client.on('messageReactionAdd', async (reaction, user) => {
 
@@ -63,7 +65,7 @@ module.exports = new Command({
                 } else if (reaction.emoji.name == multipleChoiceB) {
                     client.channels.cache.get(channel.id).send("Not quite right, you should ask for specific feedback instead of general feedback whenever possible.")
 					reaction.remove(user); 
-                } else if (reaction.emoji.name == multipleChoiceB) {
+                } else if (reaction.emoji.name == multipleChoiceC) {
                     client.channels.cache.get(channel.id).send("Nicely done! Almost done, please proceed to the last channel");   
                 }
             } else {

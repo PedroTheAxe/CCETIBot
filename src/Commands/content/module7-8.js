@@ -27,7 +27,7 @@ module.exports = new Command({
 			.setThumbnail("https://www.ulisboa.pt/sites/ulisboa.pt/files/styles/logos_80px_vert/public/uo/logos/logo_ist.jpg?itok=2NCqbcIP")
             
         embedContent
-            .setColor("#663300")
+            .setColor("#99ff99")
             .addFields(
                 { name: 'Theoretical module', value: learningModuleText},
             )
@@ -39,7 +39,7 @@ module.exports = new Command({
                 { name: 'Practical module', value: 'Which of these sentence applies feedforwarding?'},
                 { name: 'A', value: 'Your presentation was a mess.'},
                 { name: 'B', value: 'This code is confusing.'},
-                { name: 'B', value: 'Next time, try to cram less information in a single paragraph.'},
+                { name: '🇨', value: 'Next time, try to cram less information in a single paragraph.'},
             )
         client.channels.cache.get(channel.id).send({ embeds: [embedLearning] });
         client.channels.cache.get(channel.id).send('\nPlease take 2 minutes to watch this video:\nhttps://www.youtube.com/watch?v=UqphNTu7mVI');
@@ -62,7 +62,7 @@ module.exports = new Command({
                 } else if (reaction.emoji.name == multipleChoiceB) {
                     client.channels.cache.get(channel.id).send("Not quite right, this sentence does not provide any kind of future-oriented solution.")
                     reaction.remove(user); 
-                } else if (reaction.emoji.name == multipleChoiceB) {
+                } else if (reaction.emoji.name == multipleChoiceC) {
                     client.channels.cache.get(channel.id).send("Nicely done! This sentence provides a future-oriented solution and constructive feedback.");   
                 }
             } else {

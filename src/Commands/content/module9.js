@@ -14,6 +14,7 @@ module.exports = new Command({
 
 		const multipleChoiceA = '🇦'
 		const multipleChoiceB = '🇧'
+        const multipleChoiceC = '🇨'
 
         const learningModuleText = '\nTo convert feedback into feedforward, we have to remove the retrospective aspect from feedback. As Singh (2020) mentions that to convert to feedforwarding we need'
 								 + '"personalized discussion about the future (...) to instill the idea of positive change in a better manner", follow the "idea of plussing", which means to iterate '
@@ -26,7 +27,7 @@ module.exports = new Command({
 			.setThumbnail("https://www.ulisboa.pt/sites/ulisboa.pt/files/styles/logos_80px_vert/public/uo/logos/logo_ist.jpg?itok=2NCqbcIP")
             
         embedContent
-            .setColor("#663300")
+            .setColor("#99ff99")
             .addFields(
                 { name: 'Theoretical module', value: learningModuleText},
             )
@@ -38,7 +39,7 @@ module.exports = new Command({
                 { name: 'Practical module', value: 'Which would be the appropriate feedforward version of this sentence?\nYour code is a mess and it’s not properly documented.'},
                 { name: 'A', value: 'Your code is a mess and you would do better if it was properly documented.'},
                 { name: 'B', value: 'Your code would be even better if it was clearer and properly documented.'},
-                { name: 'B', value: 'Your code would be better if it was clearer, but the documentation is an absolute mess.'},
+                { name: '🇨', value: 'Your code would be better if it was clearer, but the documentation is an absolute mess.'},
             )
         client.channels.cache.get(channel.id).send({ embeds: [embedLearning] });
         client.channels.cache.get(channel.id).send({ embeds: [embedContent] });
@@ -47,6 +48,7 @@ module.exports = new Command({
         
 		reactMessage.react(multipleChoiceA)
 		reactMessage.react(multipleChoiceB)
+        reactMessage.react(multipleChoiceC)
 
         client.on('messageReactionAdd', async (reaction, user) => {
 
@@ -58,7 +60,7 @@ module.exports = new Command({
                     reaction.remove(user);             
                 } else if (reaction.emoji.name == multipleChoiceB) {
                     client.channels.cache.get(channel.id).send("Nicely done! This sentence has been converted to feedback and provides future-oriented solutions with constructive feedback.")
-                } else if (reaction.emoji.name == multipleChoiceB) {
+                } else if (reaction.emoji.name == multipleChoiceC) {
                     client.channels.cache.get(channel.id).send("Not quite right, this sentence is not fully converted to feedforwarding.");   
 					reaction.remove(user); 
                 }

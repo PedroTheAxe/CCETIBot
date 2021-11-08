@@ -37,7 +37,7 @@ module.exports = new Command({
 			.setThumbnail("https://www.ulisboa.pt/sites/ulisboa.pt/files/styles/logos_80px_vert/public/uo/logos/logo_ist.jpg?itok=2NCqbcIP")
 
 		embedContent
-			.setColor("#663300")
+			.setColor("#99ff99")
 			.addFields(
 				{ name: 'Theoretical module', value: learningModuleText},
 				{ name: '\u200b', value: learningModuleTxt2},
@@ -75,11 +75,10 @@ module.exports = new Command({
                     reaction.remove(user);             
                 } else if (reaction.emoji.name == multipleChoiceB) {
                     client.channels.cache.get(channel.id).send("This feedback is not done in a threatening tone which should not put the player in a defensive stance.")
-
+                    reaction.remove(user); 
                 } else if (reaction.emoji.name == multipleChoiceC) {
                     client.channels.cache.get(channel.id).send("Good work! This feedback, although being somewhat specific on what the player did in the game, "
 															 + "it did not specify what they could have done better to improve for the future.")
-                    reaction.remove(user); 
                 }
             } else {
                 return;

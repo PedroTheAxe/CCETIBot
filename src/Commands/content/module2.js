@@ -16,8 +16,8 @@ module.exports = new Command({
 		const multipleChoiceB = '🇧'
 		const multipleChoiceC = '🇨'
 
-        const learningModuleText = "\nWhen you give feedback, you are aiming for either one of these two main objectives: modify or maintain behaviour. "
-								 + "As stated by DeFranzo (n.d.), modifying behaviour is done as a means of improving performance. Often the way people "
+        const learningModuleText = "\nWhen giving feedback, you are aiming for either one of these two main objectives: modify or maintain behaviour. "
+								 + "As stated by DeFranzo (n.d.), modifying behaviour is done as a means of improving performance. Often, the way people "
 								 + "try to persuade others to change their behaviour is through criticism, whether it is negative or constructive. The latter "
 								 + "is usually viewed as the more effective way to give feedback, as it is better accepted, and people are more prone to take "
 								 + "note on what they have to adjust. Also, it is stated that it “is a tool for continued learning” (DeFranzo, n.d.). "
@@ -74,10 +74,9 @@ module.exports = new Command({
                 } else if (reaction.emoji.name == multipleChoiceB) {
                     client.channels.cache.get(channel.id).send("This is somewhat of a grey area, as there was motivation in the beginning, but the person who gave the "
 					                                         + "feedback wanted some minor adjustments and therefore some behaviour change. Please try again. ")
-
+					reaction.remove(user);
                 } else if (reaction.emoji.name == multipleChoiceC) {
-                    client.channels.cache.get(channel.id).send("Great! This a wonderful example on how to motivate someone through feedback output. You can proceed to the next channel! ")
-                    reaction.remove(user); 
+                    client.channels.cache.get(channel.id).send("Great! This a wonderful example on how to motivate someone through feedback output. You can proceed to the next channel! ") 
                 }
             } else {
                 return;

@@ -10,6 +10,7 @@ const module5_6 = require("../Commands/content/module5-6.js");
 const module7_8 = require("../Commands/content/module7-8.js");
 const module9 = require("../Commands/content/module9.js");
 const module10 = require("../Commands/content/module10.js");
+const module11 = require("../Commands/content/module11.js");
 
 module.exports = new Command({
 
@@ -75,7 +76,7 @@ module.exports = new Command({
                   ]
             })
             let idx = 1;
-            for(; idx < 11; idx++) {
+            for(; idx < 12; idx++) {
                 let name = user.username + "-" + idx;
                 if (idx == 6 || idx == 8) {
                     continue;
@@ -97,7 +98,6 @@ module.exports = new Command({
                     }]
                 }).then(channel => {
                     let category = guild.channels.cache.find(c => c.name == user.username && c.type == "GUILD_CATEGORY");
-                    console.log("PARENT - " + channel.id);
                     channel.setParent(category.id);
                     switch(idx) {
                         case 1:
@@ -123,6 +123,9 @@ module.exports = new Command({
                             break;
                         case 10:
                             module10.run(channel, client);
+                            break;
+                        case 11:
+                            module11.run(channel, client);
                             break;
                     }
                 });

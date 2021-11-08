@@ -75,13 +75,11 @@ module.exports = new Command({
                 if (reaction.emoji.name == multipleChoiceA) {
                     client.channels.cache.get(channel.id).send("Nice! This feedback was given at the appropriate timing (close to the event), "
 															 + "was positive and was detailed enough so that the other person could really "
-															 + "understand what they did right. You can proceed to the next channel!")
- 
-                    reaction.remove(user);             
+															 + "understand what they did right. You can proceed to the next channel!") 
                 } else if (reaction.emoji.name == multipleChoiceB) {
                     client.channels.cache.get(channel.id).send("The feedback was given in the appropriate timing (close to the event), was very "
 															 + "descriptive, but there was no negativity in it. Please try again.")
-
+					reaction.remove(user);
                 } else if (reaction.emoji.name == multipleChoiceC) {
                     client.channels.cache.get(channel.id).send("This feedback is in fact positive and very detailed but there was no mentioning "
 						 									 + "or guiding according to the action plan. Please try again.")
