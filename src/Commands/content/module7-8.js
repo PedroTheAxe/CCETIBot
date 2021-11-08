@@ -25,6 +25,9 @@ module.exports = new Command({
 			.setTitle("Defining Feedforward\n" + "Distinguishing feedback from feedforward")
 			.setColor("#80dfff")
 			.setThumbnail("https://www.ulisboa.pt/sites/ulisboa.pt/files/styles/logos_80px_vert/public/uo/logos/logo_ist.jpg?itok=2NCqbcIP")
+            .setFields(
+                {name: '\nPlease take 2 minutes to watch this video:', value: '\nhttps://www.youtube.com/watch?v=UqphNTu7mVI'},
+            )
             
         embedContent
             .setColor("#99ff99")
@@ -39,10 +42,9 @@ module.exports = new Command({
                 { name: 'Practical module', value: 'Which of these sentence applies feedforwarding?'},
                 { name: 'A', value: 'Your presentation was a mess.'},
                 { name: 'B', value: 'This code is confusing.'},
-                { name: '🇨', value: 'Next time, try to cram less information in a single paragraph.'},
+                { name: 'C', value: 'Next time, try to cram less information in a single paragraph.'},
             )
         client.channels.cache.get(channel.id).send({ embeds: [embedLearning] });
-        client.channels.cache.get(channel.id).send('\nPlease take 2 minutes to watch this video:\nhttps://www.youtube.com/watch?v=UqphNTu7mVI');
         client.channels.cache.get(channel.id).send({ embeds: [embedContent] });
         let reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] });
 

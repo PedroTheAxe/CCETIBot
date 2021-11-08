@@ -24,7 +24,7 @@ module.exports = new Command({
 
         const embed = new Discord.MessageEmbed();
 
-        const channel = "897131627770175508";
+        const channel = "907356654583050332";
         const part1 = message.guild.roles.cache.find(role => role.name === "Part1");
 
         const part1Emoji = '✅'

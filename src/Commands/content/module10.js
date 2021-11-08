@@ -18,14 +18,14 @@ module.exports = new Command({
 
         const learningModuleText = '\nIn this module we will identify, select and implement two different alternative strategies presented with a couple case studies mentioned by O’Hara (2015).\n'
 								 + 'The first strategy is "Get the right feedback to grow". O’Hara (2015) presents the case of an employee that was only getting praise from her work but not anything '
-								 + 'that could help her grow. The identified the different kind of feedback she needed and aproached her boss asking how she could "exceed is expectations". Needless to say, the '
+								 + 'that could help her grow. The identified the different kind of feedback she needed and aproached her boss asking how she could "exceed his expectations". Needless to say, the '
 								 + 'boss was impressed with her initiative and strategy to ask for feedback.\n'
 								 + 'The second strategy is "Keep your questions narrow". O’Hara (2015) presents us a different case study where another employee wasn’t getting much feedback from her superiors, '
 								 + 'and what she did get was "generic and vague". Her strategy to fix that was to approach a client and ask specific feedback questions to her clients, which helped create a '
 								 + '"virtuous cycle of future feedback"'
 		
 		embedLearning
-            .setAuthor('Module 9')
+            .setAuthor('Module 10')
 			.setTitle("Identifying, selecting and implementing 2 strategies to solicit effective feedback")
 			.setColor("#80dfff")
 			.setThumbnail("https://www.ulisboa.pt/sites/ulisboa.pt/files/styles/logos_80px_vert/public/uo/logos/logo_ist.jpg?itok=2NCqbcIP")

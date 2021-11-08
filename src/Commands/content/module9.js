@@ -39,7 +39,7 @@ module.exports = new Command({
                 { name: 'Practical module', value: 'Which would be the appropriate feedforward version of this sentence?\nYour code is a mess and it’s not properly documented.'},
                 { name: 'A', value: 'Your code is a mess and you would do better if it was properly documented.'},
                 { name: 'B', value: 'Your code would be even better if it was clearer and properly documented.'},
-                { name: '🇨', value: 'Your code would be better if it was clearer, but the documentation is an absolute mess.'},
+                { name: 'C', value: 'Your code would be better if it was clearer, but the documentation is an absolute mess.'},
             )
         client.channels.cache.get(channel.id).send({ embeds: [embedLearning] });
         client.channels.cache.get(channel.id).send({ embeds: [embedContent] });

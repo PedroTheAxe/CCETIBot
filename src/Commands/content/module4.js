@@ -24,7 +24,7 @@ module.exports = new Command({
 								 + "person and, in the long run, deteriorate their performance. This is also achieved if the feedback content itself is unclear "
 								 + "or too generic. "
 		const learningModuleTxt2 = "Gonzalez (2018) also mentioned that feedback is ineffective if “It focuses primarily on ratings, not on "
-								 + "development”.The author aso states that by evaluating based on ratings and not “focusing on what can be done from now on” "
+								 + "development”.The author also states that by evaluating based on ratings and not “focusing on what can be done from now on” "
 								 + "deviates the focus from the main goal by wasting precious time on statistics that are not directly associated with it. "
 								 + "\nAlso related to demotivation, the article states that if the feedback emphasizes negative aspects that cannot be fixed "
 								 + "anymore creates, again, a sense of uselessness. “Instead of committing ourselves to improvement, which is what we would hope "
@@ -48,7 +48,7 @@ module.exports = new Command({
         embedPractical
 			.setColor("#ff6600")
             .addFields(
-                { name: 'Practical module', value: 'Read the following sentence. What consequence comes from this type of feedback?'},
+                { name: 'Practical module', value: 'Read the following sentence. What consequence comes from this type of feedback?\n“This game you played very well, but about 60% of your passes were not directed to your teammates’ feet.”'},
 				{ name: 'A', value:'Demotivation'},
 				{ name: 'B', value:'Defensive posture'},
 				{ name: 'C', value:'Lack of focus on development'},

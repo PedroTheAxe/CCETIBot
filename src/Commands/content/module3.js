@@ -26,7 +26,7 @@ module.exports = new Command({
 								 + "receive it as well because it sounds too judgmental. Therefore, this negative feedback is better off done privately." 
 		const learningModuleTxt2 = "Also, according to “21 "
 								 + "Components of Effective Feedback” (n.d.), feedback is most effective when it is done with the use of descriptive language. In other words, "
-								 + "feedback should be detailed be easy to understand and have an appropriate tone, that is, according to the same article “be presented in a positive, tactful and "
+								 + "feedback should be detailed, be easy to understand and have an appropriate tone, that is, according to the same article “be presented in a positive, tactful and "
 								 + "non-threatening manner”. \nIn the same article and specifically about group projects, whether "
 								 + "in school or work environments, it is mentioned that feedback should be “embedded in the culture” "
 								 + "therefore being done recurringly. This way, the person receiving it can be directed on a regular basis, according to the project’s “action plan”, the article says"
@@ -52,7 +52,8 @@ module.exports = new Command({
         embedPractical
 			.setColor("#ff6600")
             .addFields(
-                { name: 'Practical module', value: 'Read the following sentence. Identify three of the characteristics mentioned above that are present in the sentence.'},
+                { name: 'Practical module', value: 'Read the following sentence. Identify three of the characteristics mentioned above that are present in the sentence:\n“During yesterday’s meeting, you were engaging on your pitch. '
+				                                 + 'You submitted a high-level performance and kept the clients’ attention throughout. From your design ideas I could see that you were committed to this project.”'},
 				{ name: 'A', value:'Timing, Positiveness, Descriptiveness'},
 				{ name: 'B', value:'Descriptiveness, Timing, Negativeness'},
 				{ name: 'C', value:'Guidance according to action plan, Positiveness, Descriptiveness'},
