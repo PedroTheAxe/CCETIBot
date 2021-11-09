@@ -25,11 +25,10 @@ module.exports = new Command({
         const embed = new Discord.MessageEmbed();
 
         const channel = "907716227793817631";
-        const part1 = message.guild.roles.cache.find(role => role.name === "Part1");
 
         const part1Emoji = '✅'
 
-        let doneModules = false;
+        let userLists = [];
 
         embed
 			.setTitle("Welcome to Group 9's CCETI project!")
@@ -140,10 +139,10 @@ module.exports = new Command({
             if (!reaction.message.guild) return;
             if (reaction.message.channel.id == channel) {
                 if (reaction.emoji.name == part1Emoji) {
-                    if (doneModules) {
+                    if (userLists.includes(user.username)) {
                         return;
                     }
-                    doneModules = true;
+                    userLists.push(user.username)
                     makeChannel(message.guild, user);             
                 }
             } else {
