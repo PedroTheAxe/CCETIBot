@@ -1,7 +1,5 @@
 const Discord = require("discord.js");
 
-const Client = require("./client.js");
-
 function runFunction(client, ...eventArgs) {}
 
 class Event {

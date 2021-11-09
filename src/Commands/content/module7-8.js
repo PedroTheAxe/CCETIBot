@@ -26,9 +26,8 @@ module.exports = new Command({
 			.setColor("#80dfff")
 			.setThumbnail("https://www.ulisboa.pt/sites/ulisboa.pt/files/styles/logos_80px_vert/public/uo/logos/logo_ist.jpg?itok=2NCqbcIP")
             .setFields(
-                {name: '\nPlease take 2 minutes to watch this video:', value: '\nhttps://www.youtube.com/watch?v=UqphNTu7mVI'},
+                {name: '\u200b', value: 'Please take 2 minutes to watch this video:'},
             )
-            
         embedContent
             .setColor("#99ff99")
             .addFields(
@@ -45,6 +44,7 @@ module.exports = new Command({
                 { name: 'C', value: 'Next time, try to cram less information in a single paragraph.'},
             )
         client.channels.cache.get(channel.id).send({ embeds: [embedLearning] });
+        client.channels.cache.get(channel.id).send("https://www.youtube.com/watch?v=UqphNTu7mVI");
         client.channels.cache.get(channel.id).send({ embeds: [embedContent] });
         let reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] });
 
