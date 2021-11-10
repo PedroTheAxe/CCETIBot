@@ -16,6 +16,9 @@ module.exports = new Command({
 		const multipleChoiceB = '🇧'
         const multipleChoiceC = '🇨'
 
+        const correctAnswer = '✅'
+		const wrongAnswer = '❌'
+
         const learningModuleText = '\nWe chose for our final module to expose a bit about a theme related to feedback that we found interesting: Feedback in non-verbal communication.\n'
                                  + 'As Seppälä (2017) mentions, "we are constantly reading each others facial expressions and body language. Imagine that you are the person walking into someone’s'
                                  + 'office to receive feedback or that you are in an interview. By definition, your boss or the interviewer is in the position of power. You are probably paying close '
@@ -25,7 +28,7 @@ module.exports = new Command({
 		
 		embedLearning
             .setAuthor('Module 11')
-			.setTitle("Non-verbal feedback")
+			.setTitle("Feedback through non-verbal communication")
 			.setColor("#80dfff")
 			.setThumbnail("https://www.ulisboa.pt/sites/ulisboa.pt/files/styles/logos_80px_vert/public/uo/logos/logo_ist.jpg?itok=2NCqbcIP")
             
@@ -45,14 +48,18 @@ module.exports = new Command({
                 { name: 'B', value: 'The person looks extremely bored.'},
                 { name: 'C', value: 'The person looks curious and inquisitive.'},
             )
-        client.channels.cache.get(channel.id).send({ embeds: [embedLearning] });
-        client.channels.cache.get(channel.id).send({ embeds: [embedContent] });
-        let reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] });
-        client.channels.cache.get(channel.id).send("https://previews.123rf.com/images/wavebreakmediamicro/wavebreakmediamicro1108/wavebreakmediamicro110837557/10113683-brunette-businesswoman-bored-in-a-meeting.jpg");        
-        
-		reactMessage.react(multipleChoiceA)
-		reactMessage.react(multipleChoiceB)
+   
+        let reactMessage
+
+        client.channels.cache.get(channel.id).send({ embeds: [embedLearning] }).then(() => 
+		client.channels.cache.get(channel.id).send({ embeds: [embedContent] })).then(async() =>
+		{reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] })}).then(() => {
+        reactMessage.react(multipleChoiceA)
+        reactMessage.react(multipleChoiceB)
         reactMessage.react(multipleChoiceC)
+        client.channels.cache.get(channel.id).send("https://previews.123rf.com/images/wavebreakmediamicro/wavebreakmediamicro1108/wavebreakmediamicro110837557/10113683-brunette-businesswoman-bored-in-a-meeting.jpg")})
+                
+		
 
         client.on('messageReactionAdd', async (reaction, user) => {
 
@@ -60,12 +67,12 @@ module.exports = new Command({
             if (!reaction.message.guild) return;
             if (reaction.message.channel.id == channel) {
                 if (reaction.emoji.name == multipleChoiceA) {
-                    client.channels.cache.get(channel.id).send("Not quite right, the person's posture and facial expressions do not express attentiveness.")
+                    client.channels.cache.get(channel.id).send(wrongAnswer + " Not quite right, the person's posture and facial expressions do not express attentiveness.")
                     reaction.remove(user);             
                 } else if (reaction.emoji.name == multipleChoiceB) {
-                    client.channels.cache.get(channel.id).send("Nicely done! That's it from us, we hope you have enjoyed this experience and learned a couple of things about feedback.")
+                    client.channels.cache.get(channel.id).send(correctAnswer + " Nicely done! That's it from us, we hope you have enjoyed this experience and learned a couple of things about feedback.")
                 } else if (reaction.emoji.name == multipleChoiceC) {
-                    client.channels.cache.get(channel.id).send("Not quite right, the person's posture and facial expressions do not express attentiveness.");   
+                    client.channels.cache.get(channel.id).send(wrongAnswer + " Not quite right, the person's posture and facial expressions do not express attentiveness.");   
                     reaction.remove(user);
                 }
             } else {

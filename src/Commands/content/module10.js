@@ -16,6 +16,9 @@ module.exports = new Command({
 		const multipleChoiceB = '🇧'
         const multipleChoiceC = '🇨'
 
+        const correctAnswer = '✅'
+		const wrongAnswer = '❌'
+
         const learningModuleText = '\nIn this module we will identify, select and implement two different alternative strategies presented with a couple case studies mentioned by O’Hara (2015).\n'
 								 + 'The first strategy is "Get the right feedback to grow". O’Hara (2015) presents the case of an employee that was only getting praise from her work but not anything '
 								 + 'that could help her grow. The identified the different kind of feedback she needed and aproached her boss asking how she could "exceed his expectations". Needless to say, the '
@@ -45,14 +48,18 @@ module.exports = new Command({
                 { name: 'B', value: 'Asking general questions, being open to criticism, asking for feedback as soon as possible.'},
                 { name: 'C', value: 'Being open to criticism, asking for feedback as soon as possible, asking specific questions.'},
             )
-        client.channels.cache.get(channel.id).send({ embeds: [embedLearning] });
-        client.channels.cache.get(channel.id).send({ embeds: [embedContent] });
-        let reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] });
 
-        
+        let reactMessage
+ 
+        client.channels.cache.get(channel.id).send({ embeds: [embedLearning] }).then(() => 
+        client.channels.cache.get(channel.id).send({ embeds: [embedContent] })).then(async() =>
+        {reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] })}).then(() => {
 		reactMessage.react(multipleChoiceA)
 		reactMessage.react(multipleChoiceB)
-        reactMessage.react(multipleChoiceC)
+        reactMessage.react(multipleChoiceC)       
+        })
+
+  
 
         client.on('messageReactionAdd', async (reaction, user) => {
 
@@ -60,13 +67,13 @@ module.exports = new Command({
             if (!reaction.message.guild) return;
             if (reaction.message.channel.id == channel) {
                 if (reaction.emoji.name == multipleChoiceA) {
-                    client.channels.cache.get(channel.id).send("Not quite right, you want to avoid being on the defensive when asking for feedback.")
+                    client.channels.cache.get(channel.id).send(wrongAnswer + " Not quite right, you want to avoid being on the defensive when asking for feedback.")
                     reaction.remove(user);             
                 } else if (reaction.emoji.name == multipleChoiceB) {
-                    client.channels.cache.get(channel.id).send("Not quite right, you should ask for specific feedback instead of general feedback whenever possible.")
+                    client.channels.cache.get(channel.id).send(correctAnswer + " Not quite right, you should ask for specific feedback instead of general feedback whenever possible.")
 					reaction.remove(user); 
                 } else if (reaction.emoji.name == multipleChoiceC) {
-                    client.channels.cache.get(channel.id).send("Nicely done! Almost done, please proceed to the last channel");   
+                    client.channels.cache.get(channel.id).send(wrongAnswer + " Nicely done! Almost done, please proceed to the last channel!");   
                 }
             } else {
                 return;

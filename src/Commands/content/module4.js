@@ -16,6 +16,9 @@ module.exports = new Command({
 		const multipleChoiceB = '🇧'
 		const multipleChoiceC = '🇨'
 
+		const correctAnswer = '✅'
+		const wrongAnswer = '❌'
+
         const learningModuleText = "\nContrarily to effective feedback, ineffective feedback happens when the person on the receiving end cannot take "
 								 + "advantage out of it and thus cannot improve. In some extreme cases, it can even lead to that person feeling ashamed "
 								 + "of what they did wrong and can hurt their performance in the future. \nHence, by giving inefficient feedback, there are "
@@ -54,14 +57,15 @@ module.exports = new Command({
 				{ name: 'C', value:'Lack of focus on development'},
             )
 
-		client.channels.cache.get(channel.id).send({ embeds: [embedLearning] });
-		client.channels.cache.get(channel.id).send({ embeds: [embedContent] });
-		let reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] });
+		let reactMessage	
 
-        
+		client.channels.cache.get(channel.id).send({ embeds: [embedLearning] }).then(() => 
+		client.channels.cache.get(channel.id).send({ embeds: [embedContent] })).then(async() =>
+		{reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] })}).then(() => {
 		reactMessage.react(multipleChoiceA)
 		reactMessage.react(multipleChoiceB)
-		reactMessage.react(multipleChoiceC)
+		reactMessage.react(multipleChoiceC)		
+		})
 
         client.on('messageReactionAdd', async (reaction, user) => {
 
@@ -69,16 +73,16 @@ module.exports = new Command({
             if (!reaction.message.guild) return;
             if (reaction.message.channel.id == channel) {
                 if (reaction.emoji.name == multipleChoiceA) {
-                    client.channels.cache.get(channel.id).send("Although the feedback points out something the player did not do as "
+                    client.channels.cache.get(channel.id).send(wrongAnswer + " Although the feedback points out something the player did not do as "
 															 + "well, it started off positively which in general should not demotivate them.")
  
                     reaction.remove(user);             
                 } else if (reaction.emoji.name == multipleChoiceB) {
-                    client.channels.cache.get(channel.id).send("This feedback is not done in a threatening tone which should not put the player in a defensive stance.")
+                    client.channels.cache.get(channel.id).send(wrongAnswer + " This feedback is not done in a threatening tone which should not put the player in a defensive stance.")
                     reaction.remove(user); 
                 } else if (reaction.emoji.name == multipleChoiceC) {
-                    client.channels.cache.get(channel.id).send("Good work! This feedback, although being somewhat specific on what the player did in the game, "
-															 + "it did not specify what they could have done better to improve for the future.")
+                    client.channels.cache.get(channel.id).send(correctAnswer + " Good work! This feedback, although being somewhat specific on what the player did in the game, "
+															 + "it did not specify what they could have done better to improve for the future. You can proceed to the next channel")
                 }
             } else {
                 return;

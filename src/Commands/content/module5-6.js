@@ -17,6 +17,9 @@ module.exports = new Command({
 		const multipleChoiceC = '🇨'
 		const multipleChoiceD = '🇩'
 
+		const correctAnswer = '✅'
+		const wrongAnswer = '❌'
+
         const learningModuleText = "\nThere are two sides to feedback that influence how effective it is.\n If it is general, you do not add much detail "
 		                         + "to the feedback being given and you address the issues that need to be improved on in a broader way. "
 								 + "Consequently, for the most part, it is less efficient than its specific counterpart because it leaves the receiver in a state "
@@ -67,31 +70,32 @@ module.exports = new Command({
 								 + 'and how it was not doing so well, you sounded angry and talked over our boss several times, without even noticing. He was not very pleased.”'},
             )
 		
-		client.channels.cache.get(channel.id).send({ embeds: [embedLearning] });
-		client.channels.cache.get(channel.id).send({ embeds: [embedContent] });
-		let reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] });
+		let reactMessage
 
-        
+		client.channels.cache.get(channel.id).send({ embeds: [embedLearning] }).then(() => 
+		client.channels.cache.get(channel.id).send({ embeds: [embedContent] })).then(async() =>
+		{reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] })}).then(() => {
 		reactMessage.react(multipleChoiceA)
 		reactMessage.react(multipleChoiceB)
 		reactMessage.react(multipleChoiceC)
 		reactMessage.react(multipleChoiceD)
-
+		})
+        
         client.on('messageReactionAdd', async (reaction, user) => {
 
             if (user.bot) return;
             if (!reaction.message.guild) return;
             if (reaction.message.channel.id == channel) {
                 if (reaction.emoji.name == multipleChoiceA) {
-                    client.channels.cache.get(channel.id).send("This conversion lacks all mentioned steps above except the observation itself, this an example of general and poor feedback. Please try again.")
+                    client.channels.cache.get(channel.id).send(wrongAnswer + " This conversion lacks all mentioned steps above except the observation itself, this an example of general and poor feedback. Please try again.")
                     reaction.remove(user);             
                 } else if (reaction.emoji.name == multipleChoiceB) {
-                    client.channels.cache.get(channel.id).send("This conversion presents itself with an observation and how to fix it, however it does not give context or impact that it had. Please try again.")
+                    client.channels.cache.get(channel.id).send(wrongAnswer + " This conversion presents itself with an observation and how to fix it, however it does not give context or impact that it had. Please try again.")
 					reaction.remove(user);  
                 } else if (reaction.emoji.name == multipleChoiceC) {
-                    client.channels.cache.get(channel.id).send("Good work! This is a wonderful example of a conversion to specific feedback with all mentioned steps, in the right order and given the right way. You can proceed to the next channel!")
+                    client.channels.cache.get(channel.id).send(correctAnswer + " Good work! This is a wonderful example of a conversion to specific feedback with all mentioned steps, in the right order and given the right way. You can proceed to the next channel!")
                 } else if (reaction.emoji.name == multipleChoiceD) {
-					client.channels.cache.get(channel.id).send("This conversion is almost perfect, although it misses on how to fix the issue mentioned above. Please try again.")
+					client.channels.cache.get(channel.id).send(wrongAnswer + " This conversion is almost perfect, although it misses on how to fix the issue mentioned above. Please try again.")
 					reaction.remove(user); 
 				}
             } else {

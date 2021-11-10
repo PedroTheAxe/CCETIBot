@@ -16,6 +16,9 @@ module.exports = new Command({
 		const multipleChoiceB = '🇧'
 		const multipleChoiceC = '🇨'
 
+		const correctAnswer = '✅'
+		const wrongAnswer = '❌'
+
         const learningModuleText = "\nWhen giving feedback, you are aiming for either one of these two main objectives: modify or maintain behaviour. "
 								 + "As stated by DeFranzo (n.d.), modifying behaviour is done as a means of improving performance. Often, the way people "
 								 + "try to persuade others to change their behaviour is through criticism, whether it is negative or constructive. The latter "
@@ -52,14 +55,15 @@ module.exports = new Command({
 				{ name: 'C', value:'"I loved the way you approached this project and how you brought together the team around your idea. You are on your way to become the employee of the month!"'},
             )
 
-		client.channels.cache.get(channel.id).send({ embeds: [embedLearning] });
-		client.channels.cache.get(channel.id).send({ embeds: [embedContent] });
-		let reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] });
+		let reactMessage
 
-        
+		client.channels.cache.get(channel.id).send({ embeds: [embedLearning] }).then(() => 
+		client.channels.cache.get(channel.id).send({ embeds: [embedContent] })).then(async() =>
+		{reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] })}).then(() => {
 		reactMessage.react(multipleChoiceA)
 		reactMessage.react(multipleChoiceB)
-		reactMessage.react(multipleChoiceC)
+		reactMessage.react(multipleChoiceC)	
+		})
 
         client.on('messageReactionAdd', async (reaction, user) => {
 
@@ -67,16 +71,16 @@ module.exports = new Command({
             if (!reaction.message.guild) return;
             if (reaction.message.channel.id == channel) {
                 if (reaction.emoji.name == multipleChoiceA) {
-                    client.channels.cache.get(channel.id).send("This is clearly feedback to modify behaviour. There was no intent to motivate the other to keep writing "
+                    client.channels.cache.get(channel.id).send(wrongAnswer + " This is clearly feedback to modify behaviour. There was no intent to motivate the other to keep writing "
 															 + "the same way, and therefore there was a need for a change. Please try again.")
  
                     reaction.remove(user);             
                 } else if (reaction.emoji.name == multipleChoiceB) {
-                    client.channels.cache.get(channel.id).send("This is somewhat of a grey area, as there was motivation in the beginning, but the person who gave the "
+                    client.channels.cache.get(channel.id).send(wrongAnswer + " This is somewhat of a grey area, as there was motivation in the beginning, but the person who gave the "
 					                                         + "feedback wanted some minor adjustments and therefore some behaviour change. Please try again. ")
 					reaction.remove(user);
                 } else if (reaction.emoji.name == multipleChoiceC) {
-                    client.channels.cache.get(channel.id).send("Great! This a wonderful example on how to motivate someone through feedback output. You can proceed to the next channel! ") 
+                    client.channels.cache.get(channel.id).send(correctAnswer + " Great! This a wonderful example on how to motivate someone through feedback output. You can proceed to the next channel! ") 
                 }
             } else {
                 return;

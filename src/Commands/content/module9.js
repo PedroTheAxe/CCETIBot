@@ -16,6 +16,9 @@ module.exports = new Command({
 		const multipleChoiceB = '🇧'
         const multipleChoiceC = '🇨'
 
+        const correctAnswer = '✅'
+		const wrongAnswer = '❌'
+
         const learningModuleText = '\nTo convert feedback into feedforward, we have to remove the retrospective aspect from feedback. As Singh (2020) mentions that to convert to feedforwarding we need'
 								 + '"personalized discussion about the future (...) to instill the idea of positive change in a better manner", follow the "idea of plussing", which means to iterate '
 								 + 'on ideas without being judgemental and to work on "self-improvement". Implementing all of these components allows us to focus on our actions going forward to better find solutions and improvements '
@@ -41,14 +44,17 @@ module.exports = new Command({
                 { name: 'B', value: 'Your code would be even better if it was clearer and properly documented.'},
                 { name: 'C', value: 'Your code would be better if it was clearer, but the documentation is an absolute mess.'},
             )
-        client.channels.cache.get(channel.id).send({ embeds: [embedLearning] });
-        client.channels.cache.get(channel.id).send({ embeds: [embedContent] });
-        let reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] });
 
-        
-		reactMessage.react(multipleChoiceA)
-		reactMessage.react(multipleChoiceB)
-        reactMessage.react(multipleChoiceC)
+        let reactMessage
+~
+
+        client.channels.cache.get(channel.id).send({ embeds: [embedLearning] }).then(() => 
+        client.channels.cache.get(channel.id).send({ embeds: [embedContent] })).then(async() =>
+        {reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] })}).then(() => {
+        reactMessage.react(multipleChoiceA)
+        reactMessage.react(multipleChoiceB)
+        reactMessage.react(multipleChoiceC)   
+        })
 
         client.on('messageReactionAdd', async (reaction, user) => {
 
@@ -56,12 +62,12 @@ module.exports = new Command({
             if (!reaction.message.guild) return;
             if (reaction.message.channel.id == channel) {
                 if (reaction.emoji.name == multipleChoiceA) {
-                    client.channels.cache.get(channel.id).send("Not quite right, this sentence is not fully converted to feedforwarding.")
+                    client.channels.cache.get(channel.id).send(wrongAnswer + " Not quite right, this sentence is not fully converted to feedforwarding.")
                     reaction.remove(user);             
                 } else if (reaction.emoji.name == multipleChoiceB) {
-                    client.channels.cache.get(channel.id).send("Nicely done! This sentence has been converted to feedback and provides future-oriented solutions with constructive feedback.")
+                    client.channels.cache.get(channel.id).send(correctAnswer + " Nicely done! This sentence has been converted to feedback and provides future-oriented solutions with constructive feedback. You can proceed to the next channel!")
                 } else if (reaction.emoji.name == multipleChoiceC) {
-                    client.channels.cache.get(channel.id).send("Not quite right, this sentence is not fully converted to feedforwarding.");   
+                    client.channels.cache.get(channel.id).send(wrongAnswer + " Not quite right, this sentence is not fully converted to feedforwarding.");   
 					reaction.remove(user); 
                 }
             } else {

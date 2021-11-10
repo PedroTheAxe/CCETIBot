@@ -16,6 +16,9 @@ module.exports = new Command({
 		const multipleChoiceB = '🇧'
         const multipleChoiceC = '🇨'
 
+        const correctAnswer = '✅'
+		const wrongAnswer = '❌'
+
         const learningModuleText = '\nAs mentioned by Marshall Goldsmith (2018), feedforward is a different strategy in giving feedback '
                                  + 'that "is always focused on the future not the past". It offers constructive '
                                  + 'advice in a way that indicates and sets expectations in what one individual can do better going forward'
@@ -43,15 +46,17 @@ module.exports = new Command({
                 { name: 'B', value: 'This code is confusing.'},
                 { name: 'C', value: 'Next time, try to cram less information in a single paragraph.'},
             )
-        client.channels.cache.get(channel.id).send({ embeds: [embedLearning] });
-        client.channels.cache.get(channel.id).send("https://www.youtube.com/watch?v=UqphNTu7mVI");
-        client.channels.cache.get(channel.id).send({ embeds: [embedContent] });
-        let reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] });
 
-        
+        let reactMessage
+
+        client.channels.cache.get(channel.id).send({ embeds: [embedLearning] }).then(() =>
+        client.channels.cache.get(channel.id).send("https://www.youtube.com/watch?v=UqphNTu7mVI").then(() => 
+		client.channels.cache.get(channel.id).send({ embeds: [embedContent] })).then(async() =>
+		{reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] })})).then(() => {
 		reactMessage.react(multipleChoiceA)
 		reactMessage.react(multipleChoiceB)
         reactMessage.react(multipleChoiceC)
+        })
 
         client.on('messageReactionAdd', async (reaction, user) => {
 
@@ -59,13 +64,13 @@ module.exports = new Command({
             if (!reaction.message.guild) return;
             if (reaction.message.channel.id == channel) {
                 if (reaction.emoji.name == multipleChoiceA) {
-                    client.channels.cache.get(channel.id).send("Not quite right, this sentence does not provide any kind of constructive advice and instead focuses on past actions.")
+                    client.channels.cache.get(channel.id).send(wrongAnswer + " Not quite right, this sentence does not provide any kind of constructive advice and instead focuses on past actions.")
                     reaction.remove(user);             
                 } else if (reaction.emoji.name == multipleChoiceB) {
-                    client.channels.cache.get(channel.id).send("Not quite right, this sentence does not provide any kind of future-oriented solution.")
+                    client.channels.cache.get(channel.id).send(wrongAnswer + " Not quite right, this sentence does not provide any kind of future-oriented solution.")
                     reaction.remove(user); 
                 } else if (reaction.emoji.name == multipleChoiceC) {
-                    client.channels.cache.get(channel.id).send("Nicely done! This sentence provides a future-oriented solution and constructive feedback.");   
+                    client.channels.cache.get(channel.id).send(correctAnswer + " Nicely done! This sentence provides a future-oriented solution and constructive feedback. You can proceed to the next channel!");   
                 }
             } else {
                 return;

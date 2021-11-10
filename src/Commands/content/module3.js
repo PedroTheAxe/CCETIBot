@@ -17,6 +17,9 @@ module.exports = new Command({
 		const multipleChoiceB = '🇧'
 		const multipleChoiceC = '🇨'
 
+		const correctAnswer = '✅'
+		const wrongAnswer = '❌'
+
         const learningModuleText = "\nOne can tell that effective feedback was given if one can identify exactly what needs to be improved "
 		 						 + "on to have better performance. So, there are a few characteristics that need to be fulfilled to achieve that effectiveness. "
 								 + "\nAs stated in the article “21 Components of Effective Feedback” (n.d.) and by Hattie and Timperley (2007), timing is very important "
@@ -59,30 +62,31 @@ module.exports = new Command({
 				{ name: 'C', value:'Guidance according to action plan, Positiveness, Descriptiveness'},
             )
 
-		client.channels.cache.get(channel.id).send({ embeds: [embedLearning] });
-		client.channels.cache.get(channel.id).send({ embeds: [embedContent] });
-		let reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] });
+		let reactMessage
 
-        
+		client.channels.cache.get(channel.id).send({ embeds: [embedLearning] }).then(() => 
+		client.channels.cache.get(channel.id).send({ embeds: [embedContent] })).then(async() =>
+		{reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] })}).then(() => {
 		reactMessage.react(multipleChoiceA)
 		reactMessage.react(multipleChoiceB)
-		reactMessage.react(multipleChoiceC)
+		reactMessage.react(multipleChoiceC)	
+		})
 
-        client.on('messageReactionAdd', async (reaction, user) => {
+		client.on('messageReactionAdd', async (reaction, user) => {
 
             if (user.bot) return;
             if (!reaction.message.guild) return;
             if (reaction.message.channel.id == channel) {
                 if (reaction.emoji.name == multipleChoiceA) {
-                    client.channels.cache.get(channel.id).send("Nice! This feedback was given at the appropriate timing (close to the event), "
+                    client.channels.cache.get(channel.id).send(correctAnswer + " Nice! This feedback was given at the appropriate timing (close to the event), "
 															 + "was positive and was detailed enough so that the other person could really "
 															 + "understand what they did right. You can proceed to the next channel!") 
                 } else if (reaction.emoji.name == multipleChoiceB) {
-                    client.channels.cache.get(channel.id).send("The feedback was given in the appropriate timing (close to the event), was very "
+                    client.channels.cache.get(channel.id).send(wrongAnswer + " The feedback was given in the appropriate timing (close to the event), was very "
 															 + "descriptive, but there was no negativity in it. Please try again.")
 					reaction.remove(user);
                 } else if (reaction.emoji.name == multipleChoiceC) {
-                    client.channels.cache.get(channel.id).send("This feedback is in fact positive and very detailed but there was no mentioning "
+                    client.channels.cache.get(channel.id).send(wrongAnswer + " This feedback is in fact positive and very detailed but there was no mentioning "
 						 									 + "or guiding according to the action plan. Please try again.")
                     reaction.remove(user); 
                 }

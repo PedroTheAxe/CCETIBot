@@ -52,6 +52,7 @@ module.exports = new Command({
             )
 			.setColor("BLURPLE")
 			.setThumbnail("https://www.ulisboa.pt/sites/ulisboa.pt/files/styles/logos_80px_vert/public/uo/logos/logo_ist.jpg?itok=2NCqbcIP")
+            .setFooter("By:\nPedro Morais - 93607\nFrancisco Bento - 93581\nFrancisco Rosa - 93578\nJoão Lopes - 93588")
 
         let lm = channel.lastMessageId;
         
