@@ -21,7 +21,7 @@ module.exports = new Command({
 
         const learningModuleText = '\nAs mentioned by Marshall Goldsmith (2018), feedforward is a different strategy in giving feedback '
                                  + 'that "is always focused on the future not the past". It offers constructive '
-                                 + 'advice in a way that indicates and sets expectations in what one individual can do better going forward'
+                                 + 'advice in a way that indicates and sets expectations in what one individual can do better going forward.'
 		
 		embedLearning
             .setAuthor('Module 7-8')

@@ -21,7 +21,7 @@ module.exports = new Command({
 
         const learningModuleText = '\nTo convert feedback into feedforward, we have to remove the retrospective aspect from feedback. As Singh (2020) mentions that to convert to feedforwarding we need'
 								 + '"personalized discussion about the future (...) to instill the idea of positive change in a better manner", follow the "idea of plussing", which means to iterate '
-								 + 'on ideas without being judgemental and to work on "self-improvement". Implementing all of these components allows us to focus on our actions going forward to better find solutions and improvements '
+								 + 'on ideas without being judgemental and to work on "self-improvement". Implementing all of these components allows us to focus on our actions going forward to better find solutions and improvements. '
 		
 		embedLearning
             .setAuthor('Module 9')

@@ -25,7 +25,7 @@ module.exports = new Command({
 								 + 'boss was impressed with her initiative and strategy to ask for feedback.\n'
 								 + 'The second strategy is "Keep your questions narrow". O’Hara (2015) presents us a different case study where another employee wasn’t getting much feedback from her superiors, '
 								 + 'and what she did get was "generic and vague". Her strategy to fix that was to approach a client and ask specific feedback questions to her clients, which helped create a '
-								 + '"virtuous cycle of future feedback"'
+								 + '"virtuous cycle of future feedback".'
 		
 		embedLearning
             .setAuthor('Module 10')

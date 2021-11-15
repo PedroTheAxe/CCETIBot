@@ -44,8 +44,8 @@ module.exports = new Command({
 			.setColor("#ff6600")
             .addFields(
                 { name: 'Practical module', value: 'Please have a look at the image below from a work meeting. What sentence better fits the non-verbal feedback being transmitted in this image?'},
-                { name: 'A', value: 'The person look attentive and enthusiastic about the meeting.'},
-                { name: 'B', value: 'The person looks extremely bored.'},
+                { name: 'A', value: 'The person looks extremely bored.'},
+                { name: 'B', value: 'The person look attentive and enthusiastic about the meeting.'},
                 { name: 'C', value: 'The person looks curious and inquisitive.'},
             )
    
@@ -67,10 +67,10 @@ module.exports = new Command({
             if (!reaction.message.guild) return;
             if (reaction.message.channel.id == channel) {
                 if (reaction.emoji.name == multipleChoiceA) {
-                    client.channels.cache.get(channel.id).send(wrongAnswer + " Not quite right, the person's posture and facial expressions do not express attentiveness.")
+                    client.channels.cache.get(channel.id).send(correctAnswer + " Nicely done! That's it from us, we hope you have enjoyed this experience and learned a couple of things about feedback.")
                     reaction.remove(user);             
                 } else if (reaction.emoji.name == multipleChoiceB) {
-                    client.channels.cache.get(channel.id).send(correctAnswer + " Nicely done! That's it from us, we hope you have enjoyed this experience and learned a couple of things about feedback.")
+                    client.channels.cache.get(channel.id).send(wrongAnswer + " Not quite right, the person's posture and facial expressions do not express attentiveness.")
                 } else if (reaction.emoji.name == multipleChoiceC) {
                     client.channels.cache.get(channel.id).send(wrongAnswer + " Not quite right, the person's posture and facial expressions do not express attentiveness.");   
                     reaction.remove(user);

@@ -47,7 +47,7 @@ module.exports = new Command({
                 { name: '9 - Converting feedback into feedforward', value: '\u200b'},
                 { name: '10 - Identifying, selecting and implementing 2 strategies to solicit effective feedback', value: '\u200b'},
                 { name: '11 - Non-verbal feedback', value: '\u200b'},
-                { name: '\u200b', value: 'Whenever you are ready, click the green checkmark emoji to start and the bot will create anonymous channels '
+                { name: '\u200b', value: 'Whenever you are ready, click the green checkmark emoji below to start and the bot will create anonymous channels '
                                             + '(only admins and you can see them) that will help you learn and practice these topics.'},
             )
 			.setColor("BLURPLE")
