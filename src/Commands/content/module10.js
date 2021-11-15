@@ -25,7 +25,7 @@ module.exports = new Command({
 								 + 'boss was impressed with her initiative and strategy to ask for feedback.\n'
 								 + 'The second strategy is "Keep your questions narrow". O’Hara (2015) presents us a different case study where another employee wasn’t getting much feedback from her superiors, '
 								 + 'and what she did get was "generic and vague". Her strategy to fix that was to approach a client and ask specific feedback questions to her clients, which helped create a '
-								 + '"virtuous cycle of future feedback".'
+								 + '"virtuous cycle of future feedback"'
 		
 		embedLearning
             .setAuthor('Module 10')
@@ -70,10 +70,10 @@ module.exports = new Command({
                     client.channels.cache.get(channel.id).send(wrongAnswer + " Not quite right, you want to avoid being on the defensive when asking for feedback.")
                     reaction.remove(user);             
                 } else if (reaction.emoji.name == multipleChoiceB) {
-                    client.channels.cache.get(channel.id).send(correctAnswer + " Not quite right, you should ask for specific feedback instead of general feedback whenever possible.")
+                    client.channels.cache.get(channel.id).send(wrongAnswer + " Not quite right, you should ask for specific feedback instead of general feedback whenever possible.")
 					reaction.remove(user); 
                 } else if (reaction.emoji.name == multipleChoiceC) {
-                    client.channels.cache.get(channel.id).send(wrongAnswer + " Nicely done! Almost done, please proceed to the last channel!");   
+                    client.channels.cache.get(channel.id).send(correctAnswer + " Nicely done! Almost done, please proceed to the last channel!");   
                 }
             } else {
                 return;
