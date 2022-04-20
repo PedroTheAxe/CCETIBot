@@ -52,10 +52,10 @@ module.exports = new Command({
 		secondEmbedPractical
 			.setColor("#ff6600")
             .addFields(
-                { name: 'Practical module', value: 'When should you use jargon?'},
-				{ name: 'A', value:'Every time you feel like it.'},
-				{ name: 'B', value:'Formal/professional setting, preferably towards people with the same knowledge of the topic.'},
-				{ name: 'C', value:'Toward your family explaining what happened at work that day.'},
+                { name: 'Practical module', value: 'Identify a pro and a con of code-switching, respectively'},
+				{ name: 'A', value:'It clarifies the message, but can be offensive to the other language’s speakers.'},
+				{ name: 'B', value:'It is a skill, but lowers trust'},
+				{ name: 'C', value:'It is a skill, but it can be misunderstood'},
             )
 		
 		let reactMessage, secondReactMessage
