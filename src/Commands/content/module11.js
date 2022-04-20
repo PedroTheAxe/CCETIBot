@@ -67,10 +67,10 @@ module.exports = new Command({
             if (!reaction.message.guild) return;
             if (reaction.message.channel.id == channel) {
                 if (reaction.emoji.name == multipleChoiceA) {
-                    client.channels.cache.get(channel.id).send(correctAnswer + " Nicely done! That's it from us, we hope you have enjoyed this experience and learned a couple of things about feedback.")
-                    reaction.remove(user);             
+                    client.channels.cache.get(channel.id).send(correctAnswer + " Nicely done! That's it from us, we hope you have enjoyed this experience and learned a couple of things about feedback.")            
                 } else if (reaction.emoji.name == multipleChoiceB) {
                     client.channels.cache.get(channel.id).send(wrongAnswer + " Not quite right, the person's posture and facial expressions do not express attentiveness.")
+                    reaction.remove(user); 
                 } else if (reaction.emoji.name == multipleChoiceC) {
                     client.channels.cache.get(channel.id).send(wrongAnswer + " Not quite right, the person's posture and facial expressions do not express attentiveness.");   
                     reaction.remove(user);

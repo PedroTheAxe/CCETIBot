@@ -11,6 +11,7 @@ module.exports = new Command({
 		const embedLearning = new Discord.MessageEmbed();
 		const embedContent = new Discord.MessageEmbed();
         const embedPractical = new Discord.MessageEmbed();
+		const secondEmbedPractical = new Discord.MessageEmbed();
 
 		const multipleChoiceA = '🇦'
 		const multipleChoiceB = '🇧'
@@ -19,14 +20,15 @@ module.exports = new Command({
 		const correctAnswer = '✅'
 		const wrongAnswer = '❌'
 
-        const learningModuleText = "\nAs mentioned by Scott (2014), there is no universal definition of feedback. "
-								 + "Usually, when people think of feedback, they relate to their school or work environments. "
-								 + "It is something that is given by their teachers, employers, or peers in order to help "
-								 + "understand the consequences of what they did and improve their future work (pp. 49-57). " 
+        const learningModuleText = "\nJargon has several definitions but, specifically in the context of communication, " +
+								"it can be defined as a “mode of speech, full of unfamiliar words” (Kertesz, A., & Benson, D. F., 1970) " +
+								"making up “technical terminology” (Lindsley, O. R., 1991) for a set of people from the same community to " + 
+								"communicate more fluidly and less expressively.\n\n However, individuals outside that group may feel excluded " +
+								"because they do not recognize its meaning. Nevertheless, and according to Hirst (2003), “science and technology would be crippled without it”." 
 		
 		embedLearning
             .setAuthor('Module 1')
-			.setTitle("Defining Feedback")
+			.setTitle("Defining Jargon")
 			.setColor("#80dfff")
 			.setThumbnail("https://www.ulisboa.pt/sites/ulisboa.pt/files/styles/logos_80px_vert/public/uo/logos/logo_ist.jpg?itok=2NCqbcIP")
 			
@@ -35,18 +37,29 @@ module.exports = new Command({
 			.addFields(
 				{ name: 'Theoretical module', value: learningModuleText},
 			)
-			.setFooter("\u200bScott, S. V. (2014). Practising what we preach: towards a student-centred definition of feedback. Teaching in Higher Education, 19(1), 49-57. https://www.tandfonline.com/doi/abs/10.1080/13562517.2013.827639")
+			.setFooter("\u200bLindsley, O. R. (1991). From technical jargon to plain English for application. Journal of applied behavior analysis, 24(3), 449. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1279596/pdf/jaba00021-0053.pdf\n" +
+					  "Hirst, R. (2003). Scientific jargon, good and bad. Journal of technical writing and communication, 33(3), 201-229. https://journals.sagepub.com/doi/pdf/10.2190/J8JJ-4YD0-4R00-G5N0\n" + 
+					  "Kertesz, A., & Benson, D. F. (1970). Neologistic jargon: a clinicopathological study. Cortex, 6(4), 362-386. https://reader.elsevier.com/reader/sd/pii/S0010945270800028")
 
         embedPractical
 			.setColor("#ff6600")
             .addFields(
-                { name: 'Practical module', value: 'When you think of giving good feedback which of these comes to your mind first?'},
-				{ name: 'A', value:'"I did not like the way you wrote your essay."'},
-				{ name: 'B', value:'"I appreciated the way you presented the topic, but there was too much information in each slide and the colour palette was not the best."'},
-				{ name: 'C', value:'"Your painting is lovely, but I cant stand the way you coloured it and the way you framed it."'},
+                { name: 'Practical module', value: 'What are the more appropriate set of motives for using jargon?'},
+				{ name: 'A', value:'Curse of knowledge, convenience, to cause confusion'},
+				{ name: 'B', value:'Convenience, curse of knowledge, lack of skills'},
+				{ name: 'C', value:'To cause confusion, lack of skills, to sound intellectual'},
+            )
+
+		secondEmbedPractical
+			.setColor("#ff6600")
+            .addFields(
+                { name: 'Practical module', value: 'Which one of the following sentences do you consider to be jargon?'},
+				{ name: 'A', value:'I’m pretty sure he is ghosting me and doesn’t want to do the project.'},
+				{ name: 'B', value:'Tbh I don’t think that will be much of a problem.'},
+				{ name: 'C', value:'Can you help me with the DB login through SSH?'},
             )
 		
-		let reactMessage
+		let reactMessage, secondReactMessage
 		
 		client.channels.cache.get(channel.id).send({ embeds: [embedLearning] }).then(() => 
 		client.channels.cache.get(channel.id).send({ embeds: [embedContent] })).then(async () =>
@@ -56,30 +69,39 @@ module.exports = new Command({
 		reactMessage.react(multipleChoiceC)	
 		})
 
+		let secondQuestionFlag = false
         client.on('messageReactionAdd', async (reaction, user) => {
 
             if (user.bot) return;
             if (!reaction.message.guild) return;
             if (reaction.message.channel.id == channel) {
-                if (reaction.emoji.name == multipleChoiceA) {
-                    client.channels.cache.get(channel.id).send(wrongAnswer + " This approach to giving feedback is too vague which can cause "
-															 + "some confusion as to what is to be improved on. This is called "
-															 + "ineffective feedback and will be addressed in the next few topics. "
-															 + "Please try again.");     
-                    reaction.remove(user);             
-                } else if (reaction.emoji.name == multipleChoiceB) {
-                    client.channels.cache.get(channel.id).send(correctAnswer + " Good job! In this case, the receiver can not only understand if "
-					                                         + "they did well or not, but they can also recognize which aspects "
-															 + "they need to improve on in the future. The effectiveness of this "
-															 + "feedback is due to the one giving it being more detailed and specific. "
-															 + "These terms will be approached later! You can proceed to the next channel!");   
-                } else if (reaction.emoji.name == multipleChoiceC) {
-                    client.channels.cache.get(channel.id).send(wrongAnswer + "This is a decent approach to giving feedback; however, it was given "
-															 + "in a very aggressive manner which can cause the other person to not "
-															 + "receive it as well. Therefore, although the feedback is somewhat specific, "
-															 + "it can still be ineffective. These topics will be tackled later! Please try again. ");   
-                    reaction.remove(user); 
-                }
+				if (secondQuestionFlag == false) {
+					if (reaction.emoji.name == multipleChoiceA) {
+						client.channels.cache.get(channel.id).send(wrongAnswer + "These motives are almost all right, but it is very rare or extreme to use jargon specifically to cause confusion to an audience. It can happen sometimes but rarely does one see someone doing it on purpose, especially during a presentation or a pitch. Please try again.");     
+						reaction.remove(user);             
+					} else if (reaction.emoji.name == multipleChoiceB) {
+						client.channels.cache.get(channel.id).send(correctAnswer + "Great job! Jargon usually is used for convenience or as a force of habit from using it so regularly, but it can also be used by someone who suffers from curse of knowledge (someone who assumes others already understand the topic in question) and/or lack of skill to translate jargon to text understood by lay people.");   
+						secondQuestionFlag = true;
+						secondReactMessage = await client.channels.cache.get(channel.id).send({ embeds: [secondEmbedPractical] })
+						secondReactMessage.react(multipleChoiceA)
+						secondReactMessage.react(multipleChoiceB)
+						secondReactMessage.react(multipleChoiceC)	
+					} else if (reaction.emoji.name == multipleChoiceC) {
+						client.channels.cache.get(channel.id).send(wrongAnswer + "These are not the motives we are looking for as all of them, besides lack of skills, are done very rarely (as it sounds as if they are done on purpose) and do not really follow the definition of jargon. Please try again.");   
+						reaction.remove(user); 
+					}
+				} else {
+					if (reaction.emoji.name == multipleChoiceA) {
+						client.channels.cache.get(channel.id).send(wrongAnswer + "This sentence does have jargon as the expression “ghosting” is not really a technical term. This word is more closely approximated to slang. Fortunately, we will address this topic later! Please try again.");     
+						reaction.remove(user);             
+					} else if (reaction.emoji.name == multipleChoiceB) {
+						client.channels.cache.get(channel.id).send(wrongAnswer + "This sentence does have jargon as “tbh” is not really a technical term. This expression is an acronym that is considered to be slang nowadays. We will dive deeper into this topic later! Please try again.");
+						reaction.remove(user);
+					
+					}   else if (reaction.emoji.name == multipleChoiceC) {
+						client.channels.cache.get(channel.id).send(correctAnswer + "Good job! Expressions like “DB”, “login” and “SSH” are widely used in the computer science realm and are great examples of jargon. The other options are examples of slangs which will be addressed on the next module! You may proceed to the next channel.");   
+					}	
+				}
             } else {
                 return;
             }

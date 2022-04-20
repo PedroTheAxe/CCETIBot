@@ -11,6 +11,7 @@ module.exports = new Command({
 		const embedLearning = new Discord.MessageEmbed();
 		const embedContent = new Discord.MessageEmbed();
         const embedPractical = new Discord.MessageEmbed();
+		const secondEmbedPractical = new Discord.MessageEmbed();
 
 		const multipleChoiceA = '🇦'
 		const multipleChoiceB = '🇧'
@@ -19,23 +20,12 @@ module.exports = new Command({
 		const correctAnswer = '✅'
 		const wrongAnswer = '❌'
 
-        const learningModuleText = "\nContrarily to effective feedback, ineffective feedback happens when the person on the receiving end cannot take "
-								 + "advantage out of it and thus cannot improve. In some extreme cases, it can even lead to that person feeling ashamed "
-								 + "of what they did wrong and can hurt their performance in the future. \nHence, by giving inefficient feedback, there are "
-								 + "some negative outcomes that come from it. First of all, as said by Gonzalez (2018), it might put the other person on "
-								 + "the defensive if it is not appropriately done (e.g., using a threatening tone). Additionally, it can demotivate the "
-								 + "person and, in the long run, deteriorate their performance. This is also achieved if the feedback content itself is unclear "
-								 + "or too generic. "
-		const learningModuleTxt2 = "Gonzalez (2018) also mentioned that feedback is ineffective if “It focuses primarily on ratings, not on "
-								 + "development”.The author also states that by evaluating based on ratings and not “focusing on what can be done from now on” "
-								 + "deviates the focus from the main goal by wasting precious time on statistics that are not directly associated with it. "
-								 + "\nAlso related to demotivation, the article states that if the feedback emphasizes negative aspects that cannot be fixed "
-								 + "anymore creates, again, a sense of uselessness. “Instead of committing ourselves to improvement, which is what we would hope "
-								 + "would happen, we hold onto this debilitating view of who we are instead of focusing on who we are becoming” (Hirsch, 2017)."
-
+        const learningModuleText = "\nWith pros also come the cons, and jargon as a few consequences that can negatively affect communication.\nAccording to CopyPress (2013), it can lower trust or make someone sound less credible, which might sound contradictory to what was mentioned in the previous module. Using jargon really depends on the context and should be used upon having done proper “audience research” (CopyPress, 2013) and adapt your jargon use accordingly.\n"
+		const learningModuleTxt2 = "As stated by Gray (2020), using too complex jargon can lead to confusion by the audience, which in turn makes them lose trust, relating back to the previous disadvantage mentioned. Therefore, a good communicator also needs to develop the skill to be able to translate jargon to “layman’s terms” (Gray, 2020), i.e., to expressions that the audience can comprehend, or they will lose interest.\nFinally, and as said by Gray (2020), overusing jargon can make you less “authentic and approachable” in the view of the audience. “It makes businesses seem robotic and less genuine” (Gray, 2020). Hence, it will make the audience feel more disconnected from you."
+		
 		embedLearning
             .setAuthor('Module 4')
-			.setTitle("Describing 3 consequences of giving ineffective feedback")
+			.setTitle("Three negative consequences of using jargon for non-specialized audiences")
 			.setColor("#80dfff")
 			.setThumbnail("https://www.ulisboa.pt/sites/ulisboa.pt/files/styles/logos_80px_vert/public/uo/logos/logo_ist.jpg?itok=2NCqbcIP")
 
@@ -45,49 +35,71 @@ module.exports = new Command({
 				{ name: 'Theoretical module', value: learningModuleText},
 				{ name: '\u200b', value: learningModuleTxt2},
 			)
-			.setFooter("\u200bJennifer Gonzalez (2018). Moving from Feedback to Feedforward (interview with Joe Hirsch). https://www.cultofpedagogy.com/feedforward/\n"
-					 + "Hirsch, J. (2017). The Feedback Fix: Dump the Past, Embrace the Future, and Lead the Way to Change (paginas, capitulos…)")
+			.setFooter("\u200bCopyPress (2013, August 23). The Pros and Cons of Using Jargon. https://www.copypress.com/kb/copy/the-pros-and-cons-of-using-jargon/\nGray, L. (2020, September 22). The negative effects of jargon in content marketing. blend. https://www.blendb2b.com/blog/the-negative-effects-of-jargon-in-content-marketing")
 
         embedPractical
 			.setColor("#ff6600")
             .addFields(
-                { name: 'Practical module', value: 'Read the following sentence. What consequence comes from this type of feedback?\n“This game you played very well, but about 60% of your passes were not directed to your teammates’ feet.”'},
-				{ name: 'A', value:'Demotivation'},
-				{ name: 'B', value:'Defensive posture'},
-				{ name: 'C', value:'Lack of focus on development'},
+                { name: 'Practical module', value: 'What are the 3 different negative consequences of using jargon?'},
+				{ name: 'A', value:'Lower trust, cause confusion, less authentic.'},
+				{ name: 'B', value:'Cause confusion, less authentic, the audience may not understand.'},
+				{ name: 'C', value:'Lower trust, the audience may not understand, makes you lose authority.'},
+            )
+		
+		secondEmbedPractical
+			.setColor("#ff6600")
+            .addFields(
+                { name: 'Practical module', value: 'When should you use jargon?'},
+				{ name: 'A', value:'Every time you feel like it.'},
+				{ name: 'B', value:'Formal/professional setting, preferably towards people with the same knowledge of the topic.'},
+				{ name: 'C', value:'Toward your family explaining what happened at work that day.'},
             )
 
-		let reactMessage	
+		let reactMessage, secondReactMessage
 
 		client.channels.cache.get(channel.id).send({ embeds: [embedLearning] }).then(() => 
 		client.channels.cache.get(channel.id).send({ embeds: [embedContent] })).then(async() =>
 		{reactMessage = await client.channels.cache.get(channel.id).send({ embeds: [embedPractical] })}).then(() => {
 		reactMessage.react(multipleChoiceA)
 		reactMessage.react(multipleChoiceB)
-		reactMessage.react(multipleChoiceC)		
+		reactMessage.react(multipleChoiceC)	
 		})
 
+        let secondQuestionFlag = false
         client.on('messageReactionAdd', async (reaction, user) => {
 
             if (user.bot) return;
             if (!reaction.message.guild) return;
             if (reaction.message.channel.id == channel) {
-                if (reaction.emoji.name == multipleChoiceA) {
-                    client.channels.cache.get(channel.id).send(wrongAnswer + " Although the feedback points out something the player did not do as "
-															 + "well, it started off positively which in general should not demotivate them.")
- 
-                    reaction.remove(user);             
-                } else if (reaction.emoji.name == multipleChoiceB) {
-                    client.channels.cache.get(channel.id).send(wrongAnswer + " This feedback is not done in a threatening tone which should not put the player in a defensive stance.")
-                    reaction.remove(user); 
-                } else if (reaction.emoji.name == multipleChoiceC) {
-                    client.channels.cache.get(channel.id).send(correctAnswer + " Good work! This feedback, although being somewhat specific on what the player did in the game, "
-															 + "it did not specify what they could have done better to improve for the future. You can proceed to the next channel")
-                }
+				if (secondQuestionFlag == false) {
+					if (reaction.emoji.name == multipleChoiceA) {
+						client.channels.cache.get(channel.id).send(correctAnswer + "Nice! If jargon is used either incorrectly or too much or both, it may lead to confusion of the audience, which consequently makes you sound less authentic and ultimately makes them lose trust in you and your presentation.");     
+						secondQuestionFlag = true;
+						secondReactMessage = await client.channels.cache.get(channel.id).send({ embeds: [secondEmbedPractical] })
+						secondReactMessage.react(multipleChoiceA)
+						secondReactMessage.react(multipleChoiceB)
+						secondReactMessage.react(multipleChoiceC)            
+					} else if (reaction.emoji.name == multipleChoiceB) {
+						client.channels.cache.get(channel.id).send(wrongAnswer + "While all of these options may seem correct, the first and third have very similar meanings and therefore there is still one more consequence missing. Please try again.");
+						reaction.remove(user);  	
+					} else if (reaction.emoji.name == multipleChoiceC) {
+						client.channels.cache.get(channel.id).send(wrongAnswer + "While all of these options may seem correct, the first and third are very similar and therefore there is still one more consequence missing. Please try again.");   
+						reaction.remove(user); 
+					}
+				} else {
+					if (reaction.emoji.name == multipleChoiceA) {
+						client.channels.cache.get(channel.id).send(wrongAnswer + "You should not use jargon every time because not everyone will understand what you mean. Please try again.");  
+						reaction.remove(user);               
+					} else if (reaction.emoji.name == multipleChoiceB) {
+						client.channels.cache.get(channel.id).send(correctAnswer + "Correct! Jargon is more commonly used in formal and professional settings, not only because there is a higher chance of them understanding you, but also makes creates a more efficient environment. You may proceed to the next channel.");
+					}   else if (reaction.emoji.name == multipleChoiceC) {
+						client.channels.cache.get(channel.id).send(wrongAnswer + "Not all of your family might understand what you are saying. If you are to talk to your family about work and you happen to use jargon, make sure to clarify it, and do not overuse it. Please try again.");
+						reaction.remove(user);    
+					}	
+				}
             } else {
                 return;
             }
-
         });
 	}    
 });

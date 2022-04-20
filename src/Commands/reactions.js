@@ -6,7 +6,7 @@ const module1 = require("../Commands/content/module1.js");
 const module2 = require("../Commands/content/module2.js");
 const module3 = require("../Commands/content/module3.js");
 const module4 = require("../Commands/content/module4.js");
-const module5_6 = require("../Commands/content/module5-6.js");
+const module5 = require("../Commands/content/module5.js");
 const module7_8 = require("../Commands/content/module7-8.js");
 const module9 = require("../Commands/content/module9.js");
 const module10 = require("../Commands/content/module10.js");
@@ -22,31 +22,26 @@ module.exports = new Command({
 
     async run(message, args, client) {
 
-        const embed = new Discord.MessageEmbed();
+        const embed = new Discord.MessageEmbed()
 
-        const channel = "907716227793817631";
+        const channel = "907716227793817631"
 
         const part1Emoji = '✅'
 
-        let userLists = [];
+        let userLists = []
 
         embed
-			.setTitle("Welcome to Group 9's CCETI project!")
+			.setTitle("Welcome to Group 78's CCETI project!")
 			.setDescription(
-				"With the help of our friend CCETIBot, today we will learn about effective feedback! More specifically:"
+				"With the help of our friend CCETIBot, today we will learn about jargon and technical language! More specifically:"
 			)
             .addFields(
-                { name: '1 - Defining feedback', value: '\u200b'},
-                { name: '2 - Describing the 2 main objectives of giving feedback', value: '\u200b'},
-                { name: '3 - Listing 5 characteristics of effective feedback', value: '\u200b'},
-                { name: '4 - Describing 3 consequences of giving ineffective feedback', value: '\u200b'},
-                { name: '5 - Differentiating general feedback from specific feedback', value: '\u200b'},
-                { name: '6 - Converting general feedback into specific feedback', value: '\u200b'},
-                { name: '7 - Defining feedforward', value: '\u200b'},
-                { name: '8 - Distinguishing feedback from feedforward', value: '\u200b'},
-                { name: '9 - Converting feedback into feedforward', value: '\u200b'},
-                { name: '10 - Identifying, selecting and implementing 2 strategies to solicit effective feedback', value: '\u200b'},
-                { name: '11 - Non-verbal feedback', value: '\u200b'},
+                { name: '1 - Defining jargon', value: '\u200b'},
+                { name: '2 - Difference between jargon and slang', value: '\u200b'},
+                { name: '3 - Three benefits of using jargon', value: '\u200b'},
+                { name: '4 - Three negative consequences of using jargon for non-specialized audiences', value: '\u200b'},
+                { name: '5 - Caracterize code-switching', value: '\u200b'},
+                { name: '6 - TODO', value: '\u200b'},
                 { name: '\u200b', value: 'Whenever you are ready, click the green checkmark emoji below to start and the bot will create anonymous channels '
                                             + '(only admins and you can see them) that will help you learn and practice these topics.'},
             )
@@ -78,12 +73,12 @@ module.exports = new Command({
                   ]
             })
             let idx = 1;
-            for(; idx < 12; idx++) { 
+            for(; idx < 6; idx++) { //change to 12 
                 let name = user.username + "-" + idx;
                 if (idx == 6 || idx == 8) {
                     continue;
                 } else if (idx == 5) {
-                    name = user.username + "- 5and6";
+                    name = user.username + "- 5";
                 } else if (idx == 7) {
                     name = user.username + "- 7and8";
                 }
@@ -115,7 +110,7 @@ module.exports = new Command({
                             module4.run(channel, client);
                             break;
                         case 5:
-                            module5_6.run(channel, client);
+                            module5.run(channel, client);
                             break;
                         case 7:
                             module7_8.run(channel, client);
