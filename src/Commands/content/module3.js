@@ -35,7 +35,7 @@ module.exports = new Command({
 				{ name: 'Theoretical module', value: learningModuleText},
 				{ name: '\u200b', value: learningModuleTxt2},
 			)
-			.setFooter("\u200bGray, L. (2020, September 22). The negative effects of jargon in content marketing. blend. https://www.blendb2b.com/blog/the-negative-effects-of-jargon-in-content-marketing")
+			.setFooter("\u200bGray, L. (2020, September 22). The negative effects of jargon in content marketing. blend. https://www.blendb2b.com/blog/the-negative-effects-of-jargon-in-content-marketing\nSharon, A. J., & Baram-Tsabari, A. (2014). Measuring mumbo jumbo: A preliminary quantification of the use of jargon in science communication. Public Understanding of Science, 23(5), 528–546. https://doi.org/10.1177/0963662512469916")
 
         embedPractical
 			.setColor("#ff6600")
