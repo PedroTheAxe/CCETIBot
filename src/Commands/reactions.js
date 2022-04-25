@@ -38,7 +38,7 @@ module.exports = new Command({
                 { name: '3 - Three benefits of using jargon', value: '\u200b'},
                 { name: '4 - Three negative consequences of using jargon for non-specialized audiences', value: '\u200b'},
                 { name: '5 - Caracterize code-switching', value: '\u200b'},
-                { name: '6 - TODO', value: '\u200b'},
+                { name: '6 - Code-switching in advertising', value: '\u200b'},
                 { name: '\u200b', value: 'Whenever you are ready, click the green checkmark emoji below to start and the bot will create anonymous channels '
                                             + '(only admins and you can see them) that will help you learn and practice these topics.'},
             )

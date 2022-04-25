@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 
 module.exports = new Command({
 	name: "module5",
-	description: "Shows the fifth and sixth channel's content",
+	description: "Shows the fifth channel's content",
 	type: "BOTH",
 	slashCommandOptions: [],
 	permission: "SEND_MESSAGES",

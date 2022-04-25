@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 
 module.exports = new Command({
 	name: "module6",
-	description: "Shows the fifth and sixth channel's content",
+	description: "Shows the sixth channel's content",
 	type: "BOTH",
 	slashCommandOptions: [],
 	permission: "SEND_MESSAGES",
@@ -12,7 +12,7 @@ module.exports = new Command({
 		const embedContent = new Discord.MessageEmbed();
         const embedPractical = new Discord.MessageEmbed();
 		const secondEmbedPractical = new Discord.MessageEmbed();
-        const embedClose = newDiscord.MessageEmbed();
+        const embedClose = new Discord.MessageEmbed();
 
 		const multipleChoiceA = '🇦'
 		const multipleChoiceB = '🇧'
