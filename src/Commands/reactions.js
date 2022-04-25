@@ -7,10 +7,7 @@ const module2 = require("../Commands/content/module2.js");
 const module3 = require("../Commands/content/module3.js");
 const module4 = require("../Commands/content/module4.js");
 const module5 = require("../Commands/content/module5.js");
-const module7_8 = require("../Commands/content/module7-8.js");
-const module9 = require("../Commands/content/module9.js");
-const module10 = require("../Commands/content/module10.js");
-const module11 = require("../Commands/content/module11.js");
+const module6 = require("../Commands/content/module6.js");
 
 module.exports = new Command({
 
@@ -112,17 +109,8 @@ module.exports = new Command({
                         case 5:
                             module5.run(channel, client);
                             break;
-                        case 7:
-                            module7_8.run(channel, client);
-                            break;
-                        case 9:
-                            module9.run(channel, client);
-                            break;
-                        case 10:
-                            module10.run(channel, client);
-                            break;
-                        case 11:
-                            module11.run(channel, client);
+                        case 6:
+                            module6.run(channel, client);
                             break;
                     }
                 });
