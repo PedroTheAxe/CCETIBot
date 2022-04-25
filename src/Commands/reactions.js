@@ -73,9 +73,9 @@ module.exports = new Command({
                   ]
             })
             let idx = 1;
-            for(; idx < 6; idx++) { //change to 12 
+            for(; idx < 7; idx++) { //change to 12 
                 let name = user.username + "-" + idx;
-                if (idx == 6 || idx == 8) {
+                if (idx == 8) {
                     continue;
                 } else if (idx == 5) {
                     name = user.username + "- 5";
