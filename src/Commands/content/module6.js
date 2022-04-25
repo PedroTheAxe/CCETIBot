@@ -12,11 +12,11 @@ module.exports = new Command({
 		const embedContent = new Discord.MessageEmbed();
         const embedPractical = new Discord.MessageEmbed();
 		const secondEmbedPractical = new Discord.MessageEmbed();
+        const embedClose = newDiscord.MessageEmbed();
 
 		const multipleChoiceA = '🇦'
 		const multipleChoiceB = '🇧'
 		const multipleChoiceC = '🇨'
-		const multipleChoiceD = '🇩'
 
 		const correctAnswer = '✅'
 		const wrongAnswer = '❌'
@@ -39,6 +39,15 @@ module.exports = new Command({
 				{ name: '\u200b', value: learningModuleTxt2},
 			)
 			.setFooter("\u200bMartin, E. (1998). The use of English in written French advertising: A study of code-switching, code-mixing, and borrowing in a commercial context. https://www.ideals.illinois.edu/bitstream/handle/2142/11555/SLS1998v28.1-10Martin.pdf?sequence=2\nNerghes, A. (2011). The impact of code-switching on persuasion: An elaboration likelihood perspective. Wageningen University.https://www.researchgate.net/profile/Adina-Nerghes/publication/267625964_The_impact_of_code-switching_on_information_processing_An_Elaboration_Likelihood_Perspective/links/547c64140cf205d1688207a6/The-impact-of-code-switching-on-information-processing-An-Elaboration-Likelihood-Perspective.pdf\nLeung, C.-H. (n.d.). An example of a Cantonese print advertisement mixed with English terms [Image]. An Empirical Study on Code Mixing in Print Advertisements in Hong Kong. https://scialert.net/fulltext/?doi=ajm.2010.49.61")
+        
+        embedClose
+			.setTitle("Closing section")
+			.setDescription(
+				"Thank you very much for your time. We hope that today you learned a little bit more about jargon and technical language with us!"
+			)
+			.setColor("BLURPLE")
+			.setThumbnail("https://www.ulisboa.pt/sites/ulisboa.pt/files/styles/logos_80px_vert/public/uo/logos/logo_ist.jpg?itok=2NCqbcIP")
+            .setFooter("By:\nPedro Morais - 93607\nFrancisco Bento - 93581\nFrancisco Rosa - 93578\nJoão Lopes - 93588")
 
         embedPractical
 			.setColor("#ff6600")
@@ -98,7 +107,8 @@ module.exports = new Command({
 						reaction.remove(user); 
 					}   else if (reaction.emoji.name == multipleChoiceC) {
 						client.channels.cache.get(channel.id).send(correctAnswer + "Correct! You can see that code-switching the words “perfect”, “juicy” and “size” appeal more to the drink as buzzwords and bring in more customers than if the package was all written in Chinese. We hope you enjoyed our project and our modules were useful for your learning. Thank you for your time!");   
-					}	
+                        client.channels.cache.get(channel.id).send({ embeds: [embedClose] });
+                    }	
 				}
             } else {
                 return;
